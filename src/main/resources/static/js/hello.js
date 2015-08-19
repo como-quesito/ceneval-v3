@@ -13,6 +13,9 @@ angular.module('hello',['ngRoute'])
             templateUrl:'guias.html',
             controller:'guias',
 
+        }). when('/reactivos',{
+            templateUrl:'reactivos.html',
+            controller:'reactivos'
         }).
          otherwise('/');
         $httpProvider.defaults.headers.common["X-Requested-With"]='XMLHttpRequest';
@@ -80,6 +83,8 @@ angular.module('hello',['ngRoute'])
             console.log("hhhhhhhaaaaddfdffdfa");
         }
     }).controller('guias',function($scope){
+
+    }).controller('reactivos',function($scope){
 
     });
 

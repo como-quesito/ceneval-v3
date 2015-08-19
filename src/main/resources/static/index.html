@@ -69,13 +69,14 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
 <body ng-app="hello" class="ng-cloak">
 <div ng-controller="navigation" class="container">
     <ul class="nav nav-pills" role="tablist">
-        <li class="active"><a href="#/">Home</a></li>
-        <li ng-show="!authenticated"><a href="#/login">login</a></li>
-        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
-        <li ng-show="authenticated"><a href="#/guias">guias</a></li>
+        <li class="active"><a href="#/">Inicio</a></li>
+        <li ng-show="!authenticated"><a href="#/login">Ingresar</a></li>
+        <li ng-show="authenticated"><a href="" ng-click="logout()">Salir</a></li>
+        <li ng-show="authenticated"><a href="#/guias">Guias</a></li>
+        <li ng-show="authenticated"><a href="#/reactivos">Reactivos</a> </li>
 
     </ul>
-
+    <p ng-show="!authenticated">Guía de estudio del CENEVAL PARA SISTEMAS E INFORMÁTICA</p>
 </div>
 <div ng-view class="container"></div>
 <script src="bower_components/angular/angular.js"></script>
