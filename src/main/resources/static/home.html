@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CENEVAL</title>
+
+</head>
+<body>
+
+<div ng-show="authenticated">
+
+<h1>Bienvenido</h1>
+    <p>El ID es{{saludo.id}}</p>
+    <p>El contenido es {{saludo.contenido}}</p>
+
+   <div ng-controller="nada">
+       <a ng-click="cambiarAGuias()">Cambiar a guias</a>
+       <ng-include src="mensaje"></ng-include>
+   </div>
+
+</div>
+<div ng-show="!authenticated">
+    <p>Logueate para ver la bienvenida</p>
+</div>
+</body>
+</html>

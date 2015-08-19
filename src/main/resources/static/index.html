@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+basado en:
+http://andy-carter.com/blog/a-beginners-guide-to-the-task-runner-gulp
+https://spring.io/guides/tutorials/spring-security-and-angular-js/
+
+VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de los css
+    y js para ellos en la rais del proyecto corremnos
+    npm init, esto es para que se genere en la raiz de nuestro proyecto el package.json
+
+    Despues instalamos gulp localmente:
+    npm install gulp --save-dev
+
+    Despues creamos el archivo gulpfile.js
+    touch gulpfile.js
+
+    Despues agregamos el plugin para concatenar, estos cambios se deben ver en tu archivo
+    package.json creado previamente:
+    npm install gulp-concat --save-dev
+
+
+   DEspues instalamos
+ npm install --save-dev gulp-ng-annotate
+
+ Y agregamos el respectivo require en gulpfile.js para que haga la minificacion para angular, pues si no lo hacemos
+ no se podra minificar correctamente, nos marcara error en donde vea $scope
+
+    Despues modificamos el archivo gulfile.js para que pongamos alli instrucciones para
+    concatenar los js, debes de organizar y crear las carpetas tal ocmo viene en gulfile.js
+       Despues se ejecuta con gulp y listo!!
+
+    Despues si quieres minificar instalas el  plugin
+    npm install gulp-uglify gulp-rename --save-dev
+
+    Despues modificamos nuestro gulpfile.js para que minifique y uglifique
+
+    Deespues si queremos usar sass instalamos:
+    npm install --save-dev gulp-ruby-sass
+     Desopues agregamos un un nuevo task en nuestro archivo en nuestro gulpfile.js
+
+   Despues tenemos que nstalar gulp-less
+   npm install gulp-less
+
+   DEespues instalamos minfycss gulp-minify-css
+ npm install --save-dev gulp-minify-css
+
+     Despues, si queremos usar Lees instalamos:
+     npm install --save-dev gulp-watch-less
+
+     Despues agregamos un task dentro de nuestro archivo gulpfile
+    -->
+
+
+
+
+    <meta charset="UTF-8">
+    <title>Ceneval Ap.</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="build/css/style.min.css">
+    <link rel="stylesheet" href="build/css/layout.css">
+    <style type="text/css">
+        [ng\:cloak],[ng-cloak],.ng-cloak{
+            display:none !important;
+        }
+    </style>
+</head>
+<body ng-app="hello" class="ng-cloak">
+<div ng-controller="navigation" class="container">
+    <ul class="nav nav-pills" role="tablist">
+        <li class="active"><a href="#/">Home</a></li>
+        <li ng-show="!authenticated"><a href="#/login">login</a></li>
+        <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+        <li ng-show="authenticated"><a href="#/guias">guias</a></li>
+
+    </ul>
+
+</div>
+<div ng-view class="container"></div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="build/js/main.min.js"></script>
+</body>
+</html>
