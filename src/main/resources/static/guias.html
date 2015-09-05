@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head ng-app="mis-guias">
     <meta charset="UTF-8">
     <title></title>
+
 </head>
 <body>
-<div ng-show="authenticated">
+<div ng-show="authenticated" ng-controller="ctrlGuias">
     <h1>Guía de estudio</h1>
+{{mensajeGuias}}
 </div>
+
 
 </body>
 </html>

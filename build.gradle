@@ -1,3 +1,8 @@
+
+import ro.isdc.wro.model.resource.*
+import ro.isdc.wro.extensions.processor.js.*
+
+
 buildscript {
     ext {
         springBootVersion = '1.3.0.M3'
@@ -9,7 +14,8 @@ buildscript {
         maven { url 'http://dl.bintray.com/sbuettner/maven' }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.springframework:springloaded:1.2.1.RELEASE'
     }
 }
 
@@ -18,15 +24,30 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
 apply plugin: 'war'
+sourceSets {
+    main {
+        resources {
+
+            excludes = ['**/node_modules/*']
+            java.lang.System.out.println("Quitando todo lo de node_module pues, ");
+
+        }
+    }
+}
+
 
 
 war {
     baseName = 'unitec'
-    version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
-
+/*
+jar{
+    baseName='unitec'
+}
+*/
 repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/snapshot" }
@@ -40,15 +61,28 @@ configurations {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-security")
+
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    //compile("org.springframework:spring-jms")
+    //compile("org.apache.activemq:activemq-broker")
+   // compile 'org.springframework.amqp:spring-rabbit:1.4.5.RELEASE'
+
     compile("javax.inject:javax.inject:1")
     compile("com.fasterxml.jackson.core:jackson-databind")
     compile("org.projectlombok:lombok:1.16.2")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-joda:2.6.0-rc1")
-   // compile(group: 'de.infinit', name: 'spring-boot-autoconfigure-wro4j', version: '0.0.6')
-  //  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-devtools")
+  //  compile(group: 'de.infinit', name: 'spring-boot-autoconfigure-wro4j', version: '0.0.6')
+  //  compile 'org.webjars.npm:angular-bootstrap:0.12.2'
+  //  compile 'org.webjars.npm:bootstrap:3.3.5'
+   // compile 'org.webjars.npm:angular:1.4.4'
+   // compile 'org.webjars.npm:angular-route:1.4.4'
+   // compile 'org.webjars.npm:jquery:2.1.4'
+   // compile 'org.webjars.npm:angular-resource:1.4.4'
+ //  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
@@ -62,4 +96,7 @@ eclipse {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
+}
+task hola <<{
+    println "hoola mundo"
 }

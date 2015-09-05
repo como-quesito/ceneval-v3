@@ -1,6 +1,7 @@
 package unitec;
 
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
@@ -15,6 +16,7 @@ import java.io.IOException;
 /**
  * Created by campitos on 11/08/15.
  */
+
 public class CsrfHeaderFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

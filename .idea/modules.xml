@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ceneval-v3.iml" filepath="$PROJECT_DIR$/ceneval-v3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/main/resources/static/fundacion/fundacion.iml" filepath="$PROJECT_DIR$/src/main/resources/static/fundacion/fundacion.iml" />
     </modules>
   </component>
 </project>

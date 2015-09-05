@@ -57,32 +57,178 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
 
     <meta charset="UTF-8">
     <title>Ceneval Ap.</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="build/css/style.min.css">
-    <link rel="stylesheet" href="build/css/layout.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
         [ng\:cloak],[ng-cloak],.ng-cloak{
             display:none !important;
         }
     </style>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="fundacion/foundation-icons.css">
+    <link rel="stylesheet" href="fundacion/foundation-icons.woff">
+    <script src="fundacion/js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="fundacion/css/foundation.min.css">
+    <link rel="stylesheet" href="build/css/style.min.css">
+
 </head>
 <body ng-app="hello" class="ng-cloak">
-<div ng-controller="navigation" class="container">
-    <ul class="nav nav-pills" role="tablist">
-        <li class="active"><a href="#/">Inicio</a></li>
-        <li ng-show="!authenticated"><a href="#/login">Ingresar</a></li>
-        <li ng-show="authenticated"><a href="" ng-click="logout()">Salir</a></li>
-        <li ng-show="authenticated"><a href="#/guias">Guias</a></li>
-        <li ng-show="authenticated"><a href="#/reactivos">Reactivos</a> </li>
+<div  ng-controller="navigation" id="pagina-completa">
 
-    </ul>
+    <!-- Inicia navegación principal-->
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="#" style="text-decoration: none">CENEVAL</a></h1>
+            </li>
+            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon"><a href="#" style="text-decoration: none"><span>Menu</span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+
+            <!-- Menu izquierda principal -->
+            <ul class="left">
+                        <li><a href="#/" style="text-decoration: none">Inicio</a></li>
+            </ul>
+            <ul class="left">
+                <li ng-show="!authenticated" class="active"><a href="#/ingresar" style="text-decoration: none">Ingresar</a></li>
+            </ul>
+            <!-- Menu inzquierda guias GUIAS-->
+            <ul ng-show="authenticated" class="left">
+
+                <li  class="has-dropdown">
+                    <a href="#" style="text-decoration: none">Guías</a>
+                    <ul  class="dropdown" >
+                        <li class="has-dropdown">
+                            <a href="#">A. Análisis Preliminar (Lecturas)</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Diagnóstico de problema</a></li>
+                                <li ><a href="#">2. Modelado de requerimientos</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">B. Desarrollo e implantación (Lecturas)</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Diseño de la solución</a></li>
+                                <li ><a href="#">2. Desarrollo de sistemas</a></li>
+                                <li ><a href="#">3. Implantación de sistemas</a></li>
+                                <li ><a href="#">4. Aplicación de modeos matemáticos</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">C. Gestión de proyectos (Lecturas)</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Administración de proyectos</a></li>
+                                <li ><a href="#">2. Control de calidad</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">D. implantación de redes, bases de datos, programación (Lecturas)</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Gestión de redes de datos</a></li>
+                                <li ><a href="#">2. Gestión de bases de datos</a></li>
+                                <li ><a href="#">3. Gestión de sistemas operativos</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <!-- Menu inzquierda REACTIVOS-->
+            <ul ng-show="authenticated" class="left">
+
+                <li  class="has-dropdown">
+                    <a href="#" style="text-decoration: none">Reactivos</a>
+                    <ul  class="dropdown" >
+                        <li class="has-dropdown">
+                            <a href="#">A. Análisis Preliminar</a>
+                            <ul class="dropdown">
+                                <li class="active"  ng-model="tema" ><a href="#/reactivos" ng-click="agarrar()">1. Diagnóstico de problema</a></li>
+                                <li ><a href="#">2. Modelado de requerimientos</a></li>
+                                <li ng-repeat="prop in props" ng-click="setSelected(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="">{{prop.label}}{{prop.tema}}</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">B. Desarrollo e implantación</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Diseño de la solución</a></li>
+                                <li ><a href="#">2. Desarrollo de sistemas</a></li>
+                                <li ><a href="#">3. Implantación de sistemas</a></li>
+                                <li ><a href="#">4. Aplicación de modeos matemáticos</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">C. Gestión de proyectos</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Administración de proyectos</a></li>
+                                <li ><a href="#">2. Control de calidad</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                            <a href="#">D. implantación de redes, bases de datos, programación</a>
+                            <ul class="dropdown">
+                                <li class="active"><a href="#">1. Gestión de redes de datos</a></li>
+                                <li ><a href="#">2. Gestión de bases de datos</a></li>
+                                <li ><a href="#">3. Gestión de sistemas operativos</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+            <!-- Opcion de logout -->
+            <ul ng-show="authenticated" class="right">
+                <li class="salir"><a ng-click="logout()" class="button alert" style="text-decoration: none"><i class="fi-unlock"></i>  Salir</a></li>
+            </ul>
+
+
+
+        </section>
+    </nav>
+   <!-- Termina navegación princpal-->
+
+    <!--BARRA DE LA IZQUIERDA CON ICONOS-->
+
+    <div ng-show="authenticated"  class="icon-bar vertical four-up">
+        <a class="item" href="#/profesores">
+            <i class="fi-address-book"></i>
+            <label>Profesores</label>
+        </a>
+        <a class="item">
+            <i class="fi-calendar"></i>
+            <label>Calendario</label>
+        </a>
+        <a class="item">
+            <i class="fi-clipboard-pencil"></i>
+            <label>Recomendaciones</label>
+        </a>
+        <a class="item">
+            <i class="fi-social-designer-news"></i>
+            <label>Temario Oficial</label>
+        </a>
+    </div>
+
+<div class="container">
+
+
     <p ng-show="!authenticated">Guía de estudio del CENEVAL PARA SISTEMAS E INFORMÁTICA</p>
 </div>
+    </div>
+
+
 <div ng-view class="container"></div>
-<script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script src="bower_components/angular-route/angular-route.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="build/js/main.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js" type="application/javascript"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="application/javascript"></script>
+<script src="bower_components/angular/angular.min.js" type="application/javascript"></script>
+<script src="bower_components/angular-route/angular-route.min.js" type="application/javascript"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js" type="application/javascript"></script>
+<script src="fundacion/js/foundation.min.js" type="application/javascript"></script>
+<script src="bower_components/hello.js" type="application/javascript"></script>
+<script src="build/guias.js" type="application/javascript"></script>
+<script>
+    $(document).foundation();
+</script>
 </body>
 </html>

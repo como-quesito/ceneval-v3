@@ -1,9 +1,37 @@
 $grid-cells: 20;
 $cell-width: 25px;
+$white:white;
+$charcoal:black;
+$font-weight-normal:12px;
+
 #main {
   $main-width: $grid-cells * $cell-width;
   $main-padding: 10px;
   width: $main-width;
   padding: $main-padding;
   .sidebar {width: ($main-width - $main-padding*2)/4}
+}
+
+p{
+  color: #245269;
+}
+label{
+  color: #003300;
+}
+
+.icon-bar{
+  position:absolute;
+height: 100%;
+  top:43px;
+  bottom: 0;
+}
+.salir{
+  background: red;
+}
+
+li:hover{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
 }
