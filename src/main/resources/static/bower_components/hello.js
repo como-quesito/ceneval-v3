@@ -1,7 +1,7 @@
 /**
  * Created by campitos on 4/08/15.
  */
-angular.module('hello',['ngRoute','ngResource'])
+angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
     .config(function($routeProvider,$httpProvider){
         $routeProvider.when('/',{
             templateUrl:'home.html',
@@ -99,8 +99,35 @@ angular.module('hello',['ngRoute','ngResource'])
             $scope.mensaje="guias.html";
             console.log("hhhhhhhaaaaddfdffdfa");
         }
-    }).controller('reactivos',function($scope,$rootScope, $http,$resource,$log){
-        $scope.hola="hola mensos";
+    }).controller('reactivos',function($scope,Upload, $timeout,$rootScope, $http,$resource,$log){
+        $scope.hola="hola desde los reactivos";
+
+        $scope.uploadFiles = function(file) {
+            $scope.f = file;
+            if (file && !file.$error) {
+                file.upload = Upload.upload({
+                   // url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+                    url:'cargar-mongo1',
+                    file: file
+                });
+
+                file.upload.then(function (response) {
+                    $timeout(function () {
+                        file.result = response.data;
+                    });
+                }, function (response) {
+                    if (response.status > 0)
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                });
+
+                file.upload.progress(function (evt) {
+                    file.progress = Math.min(100, parseInt(100.0 *
+                        evt.loaded / evt.total));
+                });
+            }
+        }
+
+        /*
         var Reactivo=$resource('reactivo/:id',{id:'@id'},{crear:{method:'POST'},
             actualizar:{method:'PUT'}, borrar:{method:'DELETE'}});
 
@@ -122,7 +149,7 @@ angular.module('hello',['ngRoute','ngResource'])
                 console.log($scope.reactivo.length);
             })
 
-/*
+
         //Get por id
         $scope.buscarPorId=function(){
 
@@ -202,6 +229,9 @@ angular.module('hello',['ngRoute','ngResource'])
                 $scope.paterno='';
                 $scope.password='';
             });
+
+            //CARGAR IMAGEN DE REACTIVO
+
 
 
 
