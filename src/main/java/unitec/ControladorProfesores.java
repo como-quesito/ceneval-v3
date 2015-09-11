@@ -3,8 +3,10 @@ package unitec;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.gridfs.GridFSDBFile;
+import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
@@ -20,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +54,7 @@ POST GUARDAR PROFESOR
  */
     @RequestMapping(value = "/profesor", method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    String guardar(@RequestBody String json) throws Exception {
+    String guardarProfesor(@RequestBody String json) throws Exception {
         String mensaje="nada :'(";
 
 
@@ -62,14 +65,19 @@ POST GUARDAR PROFESOR
         String nombre=map.get("nombre");
         String paterno=map.get("paterno");
         String  password=map.get("password");
+        String login=map.get("login");
+        String autoridad=map.get("autoridad");
 
         Profesor p=new Profesor();
+
         p.setNombre(nombre);
         p.setPaterno(paterno);
         p.setPassword(password);
+        p.setLogin(login);
+        p.setAutoridad(autoridad);
 
        servicioProfesor.agregarProfesor(p);
-        mensaje="Ha llegado el profesor y se guardo con nombre "+nombre+" , paterno "+paterno+" ,password "+password;
+        mensaje="Ha llegado el profesor y se guardo con nombre "+nombre+" , paterno "+paterno+" ,password "+password+" login:"+login+" autoridad:"+autoridad;
 
         System.out.println(mensaje);
 
@@ -83,29 +91,28 @@ POST GUARDAR PROFESOR
      */
 
 
-    @RequestMapping(value = "/pregunta", method = RequestMethod.GET, headers = {"Accept=text/html"})
+    @RequestMapping(value = "/reactivo", method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    String guardarReactivo() throws Exception {
+    String guardarReactivo(@RequestBody String json) throws Exception {
         String mensaje="nada :'(";
 
-           Reactivo reactivo=new Reactivo();
-        Opcion o1=new Opcion();
-        o1.setTitulo("primera de dos");
-        o1.setAcierto(false);
-        Opcion o2=new Opcion();
-        o2.setTitulo("segunda de dos");
-        o2.setAcierto(true);
-        ArrayList<Opcion> opciones=new ArrayList<>();
-        opciones.add(o1);
-        opciones.add(o2);
-        reactivo.setOpciones(opciones);
-        reactivo.setPregunta("Esta es la segunda pregunta");
-        reactivo.setRetroalimentacion("NO hay rtro");
-        reactivo.setTema("Uno");
-        reactivo.setSubtema("Uno b");
-        servicioProfesor.agregarReactivo(reactivo,"33868");
 
-        return "Se agrego el reactivo";
+        ObjectMapper mapper = new ObjectMapper();
+        Profesor p = mapper.readValue(json, Profesor.class);
+      String password=  p.getPassword();
+      String pregunta=   p.getReactivos().get(0).getPregunta();
+      boolean acierto1=  p.getReactivos().get(0).getOpciones().get(0).isAcierto();
+       String titulo1 =  p.getReactivos().get(0).getOpciones().get(0).getTitulo();
+        String tema=p.getReactivos().get(0).getTema();
+        String urlimagen=p.getReactivos().get(0).getUrlimagen();
+
+//Guardamos el Profeso con su reactivo, no olvide desompentar el DE ABAJOOOO!!
+        servicioProfesor.agregarReactivo(p);
+        mensaje="Ha llegado el json y se guardo con password: "+password+" y la pregunta es:"+pregunta +" el primer acierto es:"+acierto1+" urlima:"+urlimagen+" su primer titulo:"+titulo1+" con tema:"+tema;
+
+        System.out.println(mensaje);
+
+        return json;
     }
 
     @RequestMapping(value = "/borrar-pregunta/{indice}/{clave}", method = RequestMethod.GET, headers = {"Accept=text/html"})
@@ -121,9 +128,13 @@ POST GUARDAR PROFESOR
 /*
 GUARDAR IMAGEN ELN MONGODB
  */
-    @RequestMapping(value="/cargar-mongo1", method=RequestMethod.POST)
+    @RequestMapping(value="/cargar-mongo1", method=RequestMethod.POST, headers={"Accept=text/html"})
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file)throws Exception{
         String nombre=file.getOriginalFilename();
+        String prefijo="";
+        DateTime date=new DateTime();
+      int dia=  date.getDayOfYear();
+      int segundo=  date.getSecondOfDay();
         long tamano= file.getSize();
         String fileName = null;
         InputStream inputStream = null;
@@ -135,14 +146,16 @@ GUARDAR IMAGEN ELN MONGODB
             String contenido=  file.getContentType();
             int punto=nombre.indexOf(".");
             String nombreSolo=nombre.substring(0, punto);
+            prefijo="dia"+dia+"segundo"+segundo;
             //   System.out.println("nombre de archivo:"+fileName);
-            // gridFsTemplate.store(inputStream,nombre);
-            gridFsTemplate.store(inputStream,nombre,file.getContentType());
+            //Guardamos imagen, si es que hay
+            gridFsTemplate.store(inputStream,prefijo+nombre,file.getContentType());
+
 
         }
-        System.out.println("El nombre de archivaldo es:" + nombre + " el tamaño del archivo esta:" + tamano);
+        System.out.println("El nombre de archivaldo es:" + nombre + " el tamaño del archivo esta:" + tamano + " se guardo como: " + prefijo + nombre);
 
-        return  "guardado con exito";
+        return  prefijo+nombre;
 
     }
 
@@ -160,6 +173,35 @@ GUARDAR IMAGEN ELN MONGODB
         response.setContentLength(bytes.length);
         response.setContentType("image/png");
         return bytes;
+    }
+
+/*
+EXAMENSITOOOOO
+ */
+    @RequestMapping(value="/examen", method=RequestMethod.GET, headers={"Accept=application/json"})
+    @ResponseBody String examinar()throws Exception{
+        String json="";
+        ArrayList<Reactivo> reactivos=new ArrayList<>();
+        reactivos= servicioProfesor.buscarTodosReactivos();
+
+        ObjectMapper objectMapper=new ObjectMapper();
+
+        return objectMapper.writeValueAsString(reactivos);
+    }
+
+    /*
+
+    EXAMENSITO POR TEMAAAAA!!!!!
+     */
+    @RequestMapping(value="/examen/{tema}", method=RequestMethod.GET, headers={"Accept=application/json"})
+    @ResponseBody String examinarPorTema(@PathVariable String tema)throws Exception{
+        String json="";
+        ArrayList<Reactivo> reactivos=new ArrayList<>();
+        reactivos= servicioProfesor.buscarReactivosporTema(tema);
+
+        ObjectMapper objectMapper=new ObjectMapper();
+
+        return objectMapper.writeValueAsString(reactivos);
     }
 
 /*

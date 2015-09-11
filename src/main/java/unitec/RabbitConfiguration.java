@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Created by campitos on 2/09/15.
  */
-@Configuration
+//@Configuration
 public class RabbitConfiguration {
 /*
     protected final String helloWorldQueueName = "hello.world.queue";

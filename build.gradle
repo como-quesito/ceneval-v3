@@ -65,6 +65,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile 'org.mongodb:mongo-java-driver:2.12.3'
     //compile("org.springframework:spring-jms")
     //compile("org.apache.activemq:activemq-broker")
    // compile 'org.springframework.amqp:spring-rabbit:1.4.5.RELEASE'
@@ -81,8 +82,12 @@ dependencies {
    // compile 'org.webjars.npm:angular-route:1.4.4'
    // compile 'org.webjars.npm:jquery:2.1.4'
    // compile 'org.webjars.npm:angular-resource:1.4.4'
- //  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    compile("org.springframework.boot:spring-boot-starter-tomcat")
+    /*
+    nOTA IMPORTANTE: PARA CREAR WL WAR DEBES DE COMETRA EL DE compile de tomcat y DESCOMENTAR EL DE providedRuntime
+    PARA PORVAR EN EL 8080 ES LO OPUESTO
+     */
+  // providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+  compile("org.springframework.boot:spring-boot-starter-tomcat")
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 }
 
@@ -97,6 +102,4 @@ eclipse {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
-task hola <<{
-    println "hoola mundo"
-}
+

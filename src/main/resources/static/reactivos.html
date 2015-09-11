@@ -7,7 +7,7 @@
 </head>
 <body>
 <div ng-show="authenticated">
-    <h2>Reactivos ceneval inicio nuevo</h2>
+    <h2>Agregar nuevo reactivo</h2>
 <!--
    <div class="form-group" ng-repeat="reacti in reactivo">
        <label>{{reacti.pregunta}}</label>
@@ -20,22 +20,154 @@
        </div>
    </div>
 -->
-{{hola}}
-    <h4>Upload on file select</h4>
+    <p>Llena todos los campos para tu reactivo Si no conoces el área y subárea de tu reactivo selecciona las opciones que más se asemejen al tema.</p>
+    <p>Selecciona Área y subárea</p>
+    <select class="form-control" ng-model="tema">
+        <option value="A1">A1 Análisis de sistemas de información. Diagnóstico del problema y factibilidad</option>
+        <option value="A2">A2 Análisis de sistemas de información. Modelado de los requerimientos</option>
+        <option value="B1">B1 Desarrollo e implantación de aplicaciones computacionales. Diseño de la solución de problema</option>
+        <option value="B2">B2 Desarrollo e implantación de aplicaciones computacionales. Disarrollo de sistemas</option>
+        <option value="B3">B3 Desarrollo e implantación de aplicaciones computacionales. Implantacion de sistemas</option>
+        <option value="B4">B4 Desarrollo e implantación de aplicaciones computacionales. Aplicación de modelos</option>
+        <option value="C1">C1 Gestión de proyectos de tecnologías de información. Administración de proyectos</option>
+        <option value="C2">C2 Gestión de proyectos de tecnologías de información. Control de calidad de proyectos</option>
+        <option value="D1">D1 Gestión de redes de datos</option>
+        <option value="D2">D2 Gestión de bases de datos</option>
+        <option value="D3">D1 Gestión de sistemas operativos o lenguajes de desarrollo</option>
+    </select>
+    <textarea class="form-control" rows="3" placeholder="Introduce aqui el título de tu pregunta, no es necesario numerarla" ng-model="pregunta"></textarea>
+   <!-- <textarea rows="4" readonly style="background-color: white;">
+        {{titulo}}
+    </textarea>
+    -->
+    <p>Imagen para reactivo(opcional):</p>
     <button type="file" ngf-select="uploadFiles($file)"
             accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-        Select File</button>
-    <br><br>
-    Archivo cargado:
+        Seleccciona imagen de reactivo</button>
+
+    Archivo:
     <div style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}
       <span class="progress" ng-show="f.progress >= 0">
           <div style="width:{{f.progress}}%"
-               ng-bind="f.progress + '%'"></div>
+               ng-bind="f.progress + '% cargada'"></div>
       </span>
     </div>
     {{errorMsg}}
+    <!-- la suiente es la ruta para poner la imagen:
+    <img src={{miruta}}>
+
+-->
+    <p>Escribe las opciones y selecciona la correcta</p>
+    <table class="table table-bordered">
+        <tr class="success">
+        <th>Titulos para las opciones</th><th>Selecciona la correcta</th>
+        </tr>
+        <tr>
+            <td>
+            <input type="text" class="form-control" ng-model="titulo1" placeholder="Introduce el texto de la primera opcion" >
+        </td>
+            <td><div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios"  ng-model="miradio"  value="0">
+                    Es correcta
+                </label>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="form-control" ng-model="titulo2" placeholder="Introduce el texto de la segunda opcion">
+            </td>
+            <td><div class="radio">
+                <label>
+                    <input type="radio" ng-model="miradio" name="optionsRadios" value="1" >
+                    Es correcta
+                </label>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="form-control" ng-model="titulo3" placeholder="Introduce el texto de la tercera opcion">
+            </td>
+            <td><div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="miradio" value="2">
+                    Es correcta
+                </label>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="form-control" ng-model="titulo4" placeholder="Introduce el texto de la cuarta opcion">
+            </td>
+            <td><div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" ng-model="miradio" value="3">
+                    Es correcta
+                </label>
+            </div>
+            </td>
+        </tr>
+
+    </table>
+    <textarea class="form-control" rows="3"  ng-model="retroalimentacion" placeholder="Escribe y explica aquí únicamente la retroalimentación de la opción correcta"></textarea>
+        <button  data-toggle="modal" data-target="#myModal" >Guardar reactivo</button>
+
+<!-- MODALSITA -->
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Resumen del reactivo</h4>
+                </div>
+                <div class="modal-body">
+
+                    <p>Pregunta:{{pregunta}}</p>
+                    <p>Opciones</p>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="3">
+                            {{titulo1}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="3">
+                            {{titulo2}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                           <input type="radio" name="optionsRadios"  value="3">
+                            {{titulo3}}
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="optionsRadios"  value="3">
+                            {{titulo4}}
+                        </label>
+                    </div>
+          <p> Respuesta correcta {{parseInt(miradio)+1}}</p>
+                    <p>Retroalimentacion:{{retroalimentacion}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary"   data-dismiss="modal"  ng-click="guardarProfesorReactivo()" >Aceptar y guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
-Imagensilla
-<img src="leer-imagen/nino2015.jpg">
+
+
 </body>
 </html>

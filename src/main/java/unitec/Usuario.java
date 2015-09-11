@@ -14,6 +14,15 @@ public class Usuario {
     String nombre;
     String paterno;
     String email;
+    String autoridad;
+
+    public String getAutoridad() {
+        return autoridad;
+    }
+
+    public void setAutoridad(String autoridad) {
+        this.autoridad = autoridad;
+    }
 
     public Usuario() {
     }

@@ -3,17 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <div ng-show="authenticated">
-     <h2>Profesores y sus reactivos</h2>
-        <form class="form-group">
-            <input type="text" ng-model="nombre" placeholder="nombre">
-            <input type="text" ng-model="paterno" placeholder="paterno">
-            <input type="text" ng-model="password" placeholder="password">
-            <button ng-click="guardarProfesor()">guardar</button>
-        </form>
-    </div>
 </head>
+
 <body>
+<div ng-show="authenticated">
+    <h3>Dar de alta nuevos usuarios :)</h3>
+    <form class="form-group">
+        <input type="text" ng-model="nombre" placeholder="Escribe el nombre">
+        <input type="text" ng-model="paterno" placeholder=" Escribe el ap. paterno">
+        <input type="text" ng-model="login" placeholder="Escribe el login">
+        <input type="text" ng-model="password" placeholder="Escribe el password">
+        <label>Selecciona tipo de usuario</label>
+        <select class="form-control" ng-model="autoridad">
+            <option>Profesor</option>
+            <option>Alumno</option>
+        </select>
+        <button  data-toggle="modal" data-target="#myModal" >guardar</button>
+    </form>
+
+    <!-- MODALSITA -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Datos del nuevo usuario</h4>
+                </div>
+                <div class="modal-body">
+                   <p>Nombre:<span style="color: #ed0000;text-decoration: underline">{{nombre}}</span></p>
+                    <p>A. paterno:<span style="color: #ed0000;text-decoration: underline">{{paterno}}</span></p>
+                    <p>Login:<span style="color: #ed0000;text-decoration: underline">{{login}}</span></p>
+                    <p>Password:<span style="color: #ed0000;text-decoration: underline">{{password}}</span></p>
+                    <p>Esquema:<span style="color: #ed0000;text-decoration: underline">{{autoridad}}</span></p>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary"   data-dismiss="modal" ng-click="guardarProfesor()" >Aceptar y guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
 
 </body>
 </html>

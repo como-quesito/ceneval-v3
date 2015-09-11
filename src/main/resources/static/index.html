@@ -145,33 +145,25 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
                         <li class="has-dropdown">
                             <a href="#">A. Análisis Preliminar</a>
                             <ul class="dropdown">
-                                <li class="active"  ng-model="tema" ><a href="#/reactivos" ng-click="agarrar()">1. Diagnóstico de problema</a></li>
-                                <li ><a href="#">2. Modelado de requerimientos</a></li>
-                                <li ng-repeat="prop in props" ng-click="setSelected(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="">{{prop.label}}{{prop.tema}}</a></li>
+                                <li ng-repeat="prop in propsA" ng-click="seleccionarTemasA(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="#/tema-reactivos">{{prop.label}}{{prop.tema}}</a></li>
                             </ul>
                         </li>
                         <li class="has-dropdown">
-                            <a href="#">B. Desarrollo e implantación</a>
+                            <a href="#">B. Desarrollo e implantación de Aps.</a>
                             <ul class="dropdown">
-                                <li class="active"><a href="#">1. Diseño de la solución</a></li>
-                                <li ><a href="#">2. Desarrollo de sistemas</a></li>
-                                <li ><a href="#">3. Implantación de sistemas</a></li>
-                                <li ><a href="#">4. Aplicación de modeos matemáticos</a></li>
+                                <li ng-repeat="prop in propsB" ng-click="seleccionarTemasB(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="#/tema-reactivos">{{prop.label}}{{prop.tema}}</a></li>
                             </ul>
                         </li>
                         <li class="has-dropdown">
-                            <a href="#">C. Gestión de proyectos</a>
+                            <a href="#">C. Gestión de proyectos de TI</a>
                             <ul class="dropdown">
-                                <li class="active"><a href="#">1. Administración de proyectos</a></li>
-                                <li ><a href="#">2. Control de calidad</a></li>
+                                <li ng-repeat="prop in propsC" ng-click="seleccionarTemasC(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="#/tema-reactivos">{{prop.label}}{{prop.tema}}</a></li>
                             </ul>
                         </li>
                         <li class="has-dropdown">
                             <a href="#">D. implantación de redes, bases de datos, programación</a>
                             <ul class="dropdown">
-                                <li class="active"><a href="#">1. Gestión de redes de datos</a></li>
-                                <li ><a href="#">2. Gestión de bases de datos</a></li>
-                                <li ><a href="#">3. Gestión de sistemas operativos</a></li>
+                                <li ng-repeat="prop in propsD" ng-click="seleccionarTemasD(prop)" ng-class="{selected: prop == selectedprop}" ng-cloak=""><a href="#/tema-reactivos">{{prop.label}}{{prop.tema}}</a></li>
                             </ul>
                         </li>
 
@@ -192,7 +184,7 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
     <!--BARRA DE LA IZQUIERDA CON ICONOS-->
 
     <div ng-show="authenticated"  class="icon-bar vertical four-up">
-        <a class="item" href="#/profesores">
+        <a class="item" href="#/profesores" ng-show="esadministrador">
             <i class="fi-address-book"></i>
             <label>Profesores</label>
         </a>
@@ -208,6 +200,11 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
             <i class="fi-social-designer-news"></i>
             <label>Temario Oficial</label>
         </a>
+        <a class="item" ng-show="esprofesor" href="#/reactivos">
+            <i class="fi-social-github"></i>
+            <label>Reactivos</label>
+        </a>
+
     </div>
 
 <div class="container">

@@ -10,16 +10,24 @@ import java.util.ArrayList;
 public class Reactivo {
 
     String tema;
-    String subtema;
+
     String pregunta;
     String retroalimentacion;
+    String urlimagen;
     ArrayList<Opcion> opciones;
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
+    }
 
     public ArrayList<Opcion> getOpciones() {
         return opciones;
     }
 
-   
     public String getTema() {
         return tema;
     }
@@ -28,13 +36,7 @@ public class Reactivo {
         this.tema = tema;
     }
 
-    public String getSubtema() {
-        return subtema;
-    }
 
-    public void setSubtema(String subtema) {
-        this.subtema = subtema;
-    }
 
 
 

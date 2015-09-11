@@ -10,19 +10,17 @@
 </div>
 <form role="form" ng-submit="login()">
     <div class="form-group">
-        <label for="username">Usuario:</label>
-        <select class="form-control"  id="username" name="username" ng-model="credentials.username">
-            <option>Alumno</option>
-            <option>Profesor</option>
-            <option>Administrador</option>
-        </select>
+        <label for="password">Login:</label><input type="text" class="form-control" id="username"
+                                                      name="password" ng-model="credentials.username"/>
+
     </div>
     <div class="form-group">
         <label for="password">Password:</label><input type="password"
             class="form-control" id="password" name="password" ng-model="credentials.password"/>
 
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Ingresar</button>
 </form>
+<div ng-show="loading" STYLE="color: #245580;">BUSCÁNDOTE EN MONGUITO...</div>
 </body>
 </html>

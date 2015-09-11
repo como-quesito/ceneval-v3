@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-show="authenticated">
+    <h2>Bienvenidos al exa-"mensito"</h2>
+    <br>
+  <!-- ESte nos da el subarea seleccionada  {{mitemaexamen}}-->
+    <br>
+    <p> {{preguntas}} Preguntas encontradas</p>
+    <div ng-show="haypreguntas">
+        <button class="btn btn-success" ng-click="mostrarPregunta()" class=""> Siguiente >> </button>
+        <p></p>
+        <span class="label label-success">{{numeropregunta}}</span>
+        <p>{{titulo}}</p>
+       <div ng-show="tieneimagen"><img src={{urlimagen}}></div>
+        <div class="radio" ng-repeat="opcion in opciones">
+            <label>
+                <input type="radio" ng-model="radiesin.name" name="optionsRadios" value={{opcion.titulo}} ng-disabled="habilitar" >
+                {{opcion.titulo}}
+            </label>
+
+        </div>
+        <div ng-show="mostrarboton">
+            <button ng-click="checarRespuesta()"> Checar Respuesta</button>
+            <div ng-show="validar">
+                {{retroalimentacion}}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
