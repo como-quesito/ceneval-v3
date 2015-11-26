@@ -85,7 +85,7 @@ public class CenevalV3Application {
                     .httpBasic()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/index.html", "/home.html", "/ingresar.html", "/", "/bower_components/**", "/build/**", "/fundacion/**").permitAll()
+                    .antMatchers("/index.html", "/home.html", "/ingresar.html", "/", "/bower_components/**", "/build/**", "/fundacion/**","/estacion/**","/estacion.html","/favicon.ico").permitAll()
                     .anyRequest().authenticated().and()
 
                     .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)

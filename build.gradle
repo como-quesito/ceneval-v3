@@ -22,7 +22,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
 apply plugin: 'war'
 sourceSets {
     main {
@@ -65,7 +65,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-    compile 'org.mongodb:mongo-java-driver:2.12.3'
+    compile 'org.mongodb:mongo-java-driver:3.1.0-rc0'
     //compile("org.springframework:spring-jms")
     //compile("org.apache.activemq:activemq-broker")
    // compile 'org.springframework.amqp:spring-rabbit:1.4.5.RELEASE'
@@ -86,9 +86,10 @@ dependencies {
     nOTA IMPORTANTE: PARA CREAR WL WAR DEBES DE COMETRA EL DE compile de tomcat y DESCOMENTAR EL DE providedRuntime
     PARA PORVAR EN EL 8080 ES LO OPUESTO
      */
-  // providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-  compile("org.springframework.boot:spring-boot-starter-tomcat")
-    testCompile("org.springframework.boot:spring-boot-starter-test") 
+//  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+//
+compile("org.springframework.boot:spring-boot-starter-tomcat")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 

@@ -6,13 +6,15 @@
 </head>
 <body>
 <div ng-show="authenticated">
-    <h2>Bienvenidos al exa-"mensito"</h2>
+    <h2>Examen autogenerado</h2>
     <br>
   <!-- ESte nos da el subarea seleccionada  {{mitemaexamen}}-->
     <br>
     <p> {{preguntas}} Preguntas encontradas</p>
     <div ng-show="haypreguntas">
         <button class="btn btn-success" ng-click="mostrarPregunta()" class=""> Siguiente >> </button>
+        <div ng-show="verLaPregunta">
+
         <p></p>
         <span class="label label-success">{{numeropregunta}}</span>
         <p>{{titulo}}</p>
@@ -25,13 +27,43 @@
 
         </div>
         <div ng-show="mostrarboton">
-            <button ng-click="checarRespuesta()"> Checar Respuesta</button>
+            <button ng-click="checarRespuesta()"  data-toggle="modal" data-target="#myModal">Checar respuesta </button>
+           <!--
             <div ng-show="validar">
-                {{retroalimentacion}}
+               <p style="color:#ed0000">{{evaluar}}</p>
+                <p><span style="color:#009926">Seleccionaste:</span> {{radiesin.name}}<br><span style="color:#009926">Respuesta correcta:</span>{{correcta}}<br>
+                Retroalimetación: {{retroalimentacion}}</p>
+
+            </div>  -->
+        </div>
+  </div><!--cierra div de ver la pregunta -->
+    </div>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Resumen del reactivo</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-show="validar">
+                    <p style="color:#ed0000">{{evaluar}}</p>
+                    <p><span style="color:#009926">Seleccionaste:</span> {{radiesin.name}}<br><span style="color:#009926">Respuesta correcta:</span>{{correcta}}<br>
+                        Retroalimetación: {{retroalimentacion}}</p>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"   data-dismiss="modal" >Aceptar</button>
             </div>
         </div>
-
     </div>
+</div>
+
 
 </div>
 

@@ -175,6 +175,11 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
                 <li class="salir"><a ng-click="logout()" class="button alert" style="text-decoration: none"><i class="fi-unlock"></i>  Salir</a></li>
             </ul>
 
+            <!-- Si se trata de un profesor: -->
+            <ul ng-show="authenticated">
+                <li ng-show="esprofesor"><a href="#/reactivos">Reactivos</a></li>
+            </ul>
+
 
 
         </section>
@@ -182,7 +187,7 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
    <!-- Termina navegación princpal-->
 
     <!--BARRA DE LA IZQUIERDA CON ICONOS-->
-
+<!--
     <div ng-show="authenticated"  class="icon-bar vertical four-up">
         <a class="item" href="#/profesores" ng-show="esadministrador">
             <i class="fi-address-book"></i>
@@ -206,7 +211,7 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
         </a>
 
     </div>
-
+-->
 <div class="container">
 
 
@@ -222,8 +227,9 @@ VAMOS A USAR GULP  como mecanismo de generacion de comrepsion y distribucion de 
 <script src="bower_components/angular-route/angular-route.min.js" type="application/javascript"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js" type="application/javascript"></script>
 <script src="fundacion/js/foundation.min.js" type="application/javascript"></script>
+<script src="fundacion/js/foundation/foundation.magellan.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-<script  src="bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
 <script src="bower_components/hello.js" type="application/javascript"></script>
 <script src="build/guias.js" type="application/javascript"></script>
 <script>

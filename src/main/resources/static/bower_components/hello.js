@@ -61,13 +61,20 @@ angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
                     $rootScope.titulo2;
                     $rootScope.titulo3;
                     $rootScope.titulo4;
-                    $rootScope.mostratboton=false;
 
+                    $rootScope.radiesin = {
+                        name: 'ninguna'
+                    };
+                    $rootScope.verLaPregunta=false;
                     //El siguiente es para que sin ahcer click aparezca el menu en los reactivos
                     /*
                     ESTE ESTA MEGA INTERESANTE POR QUE LOS LI DE DAS EL PODER DE VER CUAL SELECCIONAS Y ASI TAMBIEN ASIGNAR VALORES ESPECIFICOS
                     A UN MODELO.
                      */
+
+                    var ocultar=function(){
+                        $rootScope.verLaPregunta=false;
+                    }
                     $rootScope.propsA = [{label: "A1", tema:" Diagnóstico del problema"},{label: "A2", tema:" Modelado de los requerimientos"}];
                     $rootScope.propsB = [{label: "B1", tema:" Diseño de la solución del problema de TI"},{label: "B2", tema:" Desarrollo de sistemas"},
                         {label:"B3", tema:" Implantación de sistemas"},{label:"B4", tema:" Aplicación de modelos matemáticos"}];
@@ -76,23 +83,31 @@ angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
                         {label:"D3", tema:" Gestión de sistemas operativos o lenguajes de prog."}];
                     $rootScope.seleccionarTemasA=function(prop){
                         console.log("hay me oprimiste:"+prop.label);
+                        ocultar();
                         $rootScope.mitemaexamen=prop.label;
                         procesarExamenTemita( $rootScope.mitemaexamen);
+
                     }
                     $rootScope.seleccionarTemasB=function(prop){
                         console.log("hay me oprimiste:"+prop.label);
                         $rootScope.mitemaexamen=prop.label;
+                        ocultar();
                         procesarExamenTemita( $rootScope.mitemaexamen);
+
                     }
                     $rootScope.seleccionarTemasC=function(prop){
                         console.log("hay me oprimiste:"+prop.label);
+                        ocultar();
                         $rootScope.mitemaexamen=prop.label;
                         procesarExamenTemita( $rootScope.mitemaexamen);
+
                     }
                     $rootScope.seleccionarTemasD=function(prop){
                         console.log("hay me oprimiste:"+prop.label);
+                        ocultar();
                         $rootScope.mitemaexamen=prop.label;
                         procesarExamenTemita( $rootScope.mitemaexamen);
+
                     }
 
 
@@ -307,7 +322,7 @@ angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
                 'reactivos':[
                     {
                         'pregunta':$scope.pregunta,
-                        'urlimagen':$rootScope.rutaimagen,
+                        'urlimagen':"leer-imagen/"+$rootScope.rutaimagen,
                         'tema':$scope.tema,
                         'retroalimentacion':$scope.retroalimentacion,
                         'opciones':[
@@ -397,23 +412,33 @@ angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
         $scope.evaluar='';
         $scope.habilitar='false';
         //Tenemos que definir asi a los radio buttons como json, si los declaras como una fdato escalar no funcionara
-        $scope.radiesin = {
-            name: 'blue'
-        };
+
         $scope.validar=false;
+        /*****************************************
+        MOSTRAR PREGUNTA
+         *****************************************/
   $scope.mostrarPregunta=function(){
+      $rootScope.verLaPregunta=true;
+      console.log("ver la pregunta:"+$rootScope.verLaPregunta);
       $scope.habilitar='';
       $scope.evaluar='';
       $scope.correcta='';
+      $rootScope.radiesin = {
+          name: 'ninguna'
+      };
       $rootScope.mostrarboton=true;
    var i=$rootScope.indice;
       $scope.numeropregunta=i+1;
       $scope.numeropregunta='Pregunta no. '+$scope.numeropregunta;
      $scope.validar=false;
+
       $scope.titulo=$rootScope.reactivostema[i].pregunta;
       $scope.urlimagen=$rootScope.reactivostema[i].urlimagen;
       if($scope.urlimagen!=''){
           console.log('Tiene imagen');
+          $rootScope.tieneimagen=true;
+      }
+      else{
           $rootScope.tieneimagen=true;
       }
       $scope.opciones=$rootScope.reactivostema[i].opciones;
@@ -428,18 +453,24 @@ angular.module('hello',['ngRoute','ngResource','ngFileUpload'])
         $scope.checarRespuesta=function(){
             $scope.validar=true;
             $scope.habilitar='true';
+
+
+
+
             for(var j=0;j<4;j++){
                 if($scope.opciones[j].acierto===true){
                     $scope.correcta=$scope.opciones[j].titulo;
                 }
             }
             console.log("Respuesta Correcta:"+$scope.correcta);
-         console.log("SEleccionastessses"+   $scope.radiesin.name);
-            if($scope.radiesin.name===$scope.correcta)$scope.evaluar="CORRECTO";
+         console.log("SEleccionastessses"+   $rootScope.radiesin.name);
+            if($rootScope.radiesin.name===$scope.correcta)$scope.evaluar="CORRECTO";
             else $scope.evaluar="MAL!!!"
             console.log($scope.evaluar);
 
         }
+
+
 
     });
 
